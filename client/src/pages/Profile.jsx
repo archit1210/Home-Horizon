@@ -20,7 +20,7 @@ import userSlice, {
   signOutUserSuccess,
 } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
-import { ReducerType } from "@reduxjs/toolkit";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   //storing the current user into a variable
@@ -187,6 +187,12 @@ const Profile = () => {
         >
           {loading ? "loading" : "update"}
         </button>
+        <Link
+          className="bg-green-700 text-white rounded-lg uppercase text-center p-3 hover:placeholder-opacity-95"
+          to={"/create-listing"}
+        >
+          Create Listing
+        </Link>
       </form>
       <div className="flex justify-between mt-5">
         <span
