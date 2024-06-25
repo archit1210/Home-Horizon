@@ -205,7 +205,7 @@ const UpdateListing = () => {
             placeholder="Address"
             className="border p-3 rounded-lg"
             id="address"
-            maxLength={62}
+            maxLength={300}
             minLength={10}
             required
             onChange={handleChange}
