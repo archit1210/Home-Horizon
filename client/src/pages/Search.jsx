@@ -56,6 +56,11 @@ const Search = () => {
       const searchQuery = urlParams.toString();
       const res = await fetch(`/api/listing/get?${searchQuery}`);
       const data = await res.json();
+      if (data.length > 8) {
+        setShowmore(true);
+      } else {
+        setShowmore(false);
+      }
       setListings(data);
       setLoading(false);
     };
@@ -97,6 +102,20 @@ const Search = () => {
     navigate(`/search?${searchQuery}`);
   };
 
+  const onShowMoreClick = async () => {
+    const numberofListings = listings.length;
+    const startIndex = numberofListings;
+    const urlParams = new URLSearchParams(location.search);
+    urlParams.set("startIndex", startIndex);
+    const searchQuery = urlParams.toString();
+    const res = await fetch(`/api/listings/get?${searchQuery}`);
+    const data = await res.json();
+    if (data.length < 8) {
+      setShowmore(false);
+    }
+
+    setListings([...listings, ...data]);
+  };
   return (
     <div className="flex flex-col md:flex-row">
       <div className="p-7 border-b-2 md:border-r-2 md:min-h-screen">
@@ -205,7 +224,7 @@ const Search = () => {
         <h1 className="text-3xl font-semibold  p-3 text-slate-700 mt-5">
           Listing Result
         </h1>
-        <div className="p-7 flex flex-col gap-4">
+        <div className="p-7 flex  gap-4 flex-wrap">
           {!loading && listings.length == 0 && (
             <p className="text-xl text-slate-700">No Listing Found!!</p>
           )}
@@ -219,6 +238,14 @@ const Search = () => {
             listings.map((listing) => (
               <ListingCard key={listing._id} listing={listing} />
             ))}
+          {showmore && (
+            <button
+              className="text-green-700 hover:underline p-7"
+              onClick={onShowMoreClick}
+            >
+              Show more
+            </button>
+          )}
         </div>
       </div>
     </div>
