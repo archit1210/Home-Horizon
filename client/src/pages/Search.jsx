@@ -159,10 +159,10 @@ const Search = () => {
             <div className="flex gap-2">
               <input
                 type="checkbox"
-                id="sale"
+                id="sell" // Change from 'sale' to 'sell'
                 className="w-5"
                 onChange={handleChange}
-                checked={sidebarData.type === "sale"}
+                checked={sidebarData.type === "sell"}
               />
               <span>Sell</span>
             </div>
